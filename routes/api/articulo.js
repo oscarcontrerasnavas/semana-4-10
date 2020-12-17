@@ -6,6 +6,7 @@ const auth = require('../../middlewares/auth.js');
 const router = routerx();
 
 router.get('/list', articuloController.list); //pagina.com/api/articulo/list
+router.get('/query/:articleId', articuloController.query);
 router.post('/add', articuloController.add); //pagina.com/api/articulo/add
 router.put('/update', articuloController.update); //pagina.com/api/articulo/update
 router.put('/activate', articuloController.activate); //pagina.com/api/articulo/activate

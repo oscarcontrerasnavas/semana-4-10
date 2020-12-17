@@ -19,6 +19,25 @@ module.exports = {
         }
     },
 
+    query: async (req, res, next) => {
+        try {
+            let article = await models.Articulo.findOne({
+                where: {
+                    id: req.params.articleId
+                }
+            });
+
+            if (!article) {
+                return res.status(404).send("El artículo no existe");
+            }
+
+            res.status(200).json(article)
+        } catch (e) {
+            res.status(500).send("Hubo un error en el servidor");
+            next();
+        }
+    },
+
     add: async(req, res, next) => {
         try {
             const reg = await models.Articulo.create(req.body);
