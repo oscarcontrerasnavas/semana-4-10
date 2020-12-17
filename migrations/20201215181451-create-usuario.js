@@ -8,6 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      rol: {
+        type: Sequelize.STRING
+      },
       nombre: {
         type: Sequelize.STRING
       },
@@ -19,9 +22,6 @@ module.exports = {
       },
       estado: {
         type: Sequelize.INTEGER
-      },
-      rol: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
