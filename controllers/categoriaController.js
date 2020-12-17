@@ -1,3 +1,4 @@
+const db = require('../models');
 const models = require('../models');
 
 module.exports = {
@@ -10,6 +11,25 @@ module.exports = {
                 message: 'Ocurrió un error'
             });
             next(e);
+        }
+    },
+
+    query: async (req, res, next) => {
+        try {
+            let category = await db.Categoria.findOne({
+                where: {
+                    id: req.params.categoryId
+                }
+            });
+
+            if (!category) {
+                return res.status(404).send("La categoría no existe");
+            }
+
+            res.status(200).json(category)
+        } catch (e) {
+            res.status(500).send("Hubo un error en el servidor");
+            next();
         }
     },
 
