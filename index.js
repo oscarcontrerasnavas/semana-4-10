@@ -22,7 +22,9 @@ app.use('/api', router);
 
 app.set('port', process.env.PORT || 3000);
 
-
+app.get('/', (req, res) =>{
+    res.send('Conectado!, vamos bien');
+})
 
 if (process.env.NODE_ENV !== 'test') {
     app.listen(app.get('port'), () => {
@@ -31,3 +33,15 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 module.exports = app;
+
+//COMANDOS PARA CREAR LOS MODELOS
+//npx sequelize-cli model:generate --name Usuario --attributes rol:string,nombre:string,password:string,email:string,estado:integer
+//npx sequelize-cli model:generate --name Articulo --attributes codigo:string,nombre:string,descripcion:string,estado:integer,categoriaId:integer
+//npx sequelize-cli model:generate --name Categoria --attributes nombre:string,descripcion:string,estado:integer
+
+//MIGRAR LOS MODELOS CREADOS A LA BASE DE DATOS SEGUN config.json
+//npx sequelize-cli db:migrate
+
+//INGRESAR DATOS SEMILLA EN LA BASE DE DATOS
+//npx sequelize-cli db:seed:all
+
