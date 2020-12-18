@@ -45,3 +45,5 @@ module.exports = app;
 //INGRESAR DATOS SEMILLA EN LA BASE DE DATOS
 //npx sequelize-cli db:seed:all
 
+//MODIFICAR UN MODELO
+//npx sequelize-cli migration:create --name alter-Articulo

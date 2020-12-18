@@ -4,7 +4,7 @@ const auth = require('../../middlewares/auth.js');
 
 const router = routerx();
 
-router.post('/login', usuarioController.login);
+router.post('/login', usuarioController.login);  //pagina.com/api/usuario/login
 router.get('/list', auth.verifyAdministrador, usuarioController.list); //pagina.com/api/usuario/list
 router.post('/add', auth.verifyAdministrador, usuarioController.add); //pagina.com/api/usuario/add
 router.put('/update', auth.verifyAdministrador, usuarioController.update); //pagina.com/api/usuario/update
