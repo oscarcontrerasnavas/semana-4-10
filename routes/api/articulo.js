@@ -5,11 +5,19 @@ const auth = require('../../middlewares/auth.js');
 
 const router = routerx();
 
+// GET
 router.get('/list', articuloController.list); //pagina.com/api/articulo/list
-router.get('/query/:articleId', articuloController.query);
+router.get('/query', articuloController.query);
+
+// POST
 router.post('/add', articuloController.add); //pagina.com/api/articulo/add
+
+// PUT
 router.put('/update', articuloController.update); //pagina.com/api/articulo/update
 router.put('/activate', articuloController.activate); //pagina.com/api/articulo/activate
 router.put('/deactivate', articuloController.deactivate);  //pagina.com/api/articulo/deactivate
+
+// DELETE
+router.delete('/remove', auth.verifyAdministrador, articuloController.remove);
 
 module.exports = router;
