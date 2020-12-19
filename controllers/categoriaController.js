@@ -1,4 +1,3 @@
-const db = require('../models');
 const models = require('../models');
 
 module.exports = {
@@ -84,7 +83,7 @@ module.exports = {
         }
     },
 
-    remove: (req, res, next) => {
+    remove: async (req, res, next) => {
         try {
             const record = await models.Categoria.destroy({
                 where: {

@@ -89,7 +89,7 @@ module.exports = {
         }
     },
 
-    remove: (req, res, next) => {
+    remove: async (req, res, next) => {
         try {
             const record = await models.Articulo.destroy({
                 where: {
