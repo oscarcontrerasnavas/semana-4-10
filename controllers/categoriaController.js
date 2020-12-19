@@ -18,7 +18,7 @@ module.exports = {
         try {
             let category = await db.Categoria.findOne({
                 where: {
-                    id: req.params.categoryId
+                    id: req.query.id
                 }
             });
 
@@ -81,6 +81,20 @@ module.exports = {
                 message: 'Ocurrió un error'
             });
             next(e);
+        }
+    },
+
+    remove: (req, res, next) => {
+        try {
+            const record = await models.Categoria.destroy({
+                where: {
+                    id: req.body.id
+                }
+            });
+            res.status(200).send(record);
+        } catch {
+            res.status(500).send("Ha ocurrido un error");
+            next();
         }
     }
 }
