@@ -18,7 +18,7 @@ router.put('/activate', categoriaController.activate); //pagina.com/api/categori
 router.put('/deactivate', categoriaController.deactivate);  //pagina.com/api/categoria/deactivate
 
 // DELETE
-router.delete('/remove', auth.verifyAdministrador, categoriaController.remove);
+router.delete('/remove', categoriaController.remove); // site.com/api/categorua/remove
 
 
 
