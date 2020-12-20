@@ -15,7 +15,7 @@ module.exports = {
 
     query: async (req, res, next) => {
         try {
-            let category = await db.Categoria.findOne({
+            let category = await models.Categoria.findOne({
                 where: {
                     id: req.query.id
                 }
