@@ -51,10 +51,13 @@ module.exports = {
                 { nombre: req.body.nombre, descripcion: req.body.descripcion },
                 { where: { id: req.body.id } }
                 );
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Categoria.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
-                message: 'Ocurrió un error'
+                message: 'Ocurrió un error -> ' + e
             });
             next(e);
         }
@@ -63,7 +66,10 @@ module.exports = {
     activate: async(req, res, next) => {
         try {
             const reg = await models.Categoria.update({ estado: 1 }, { where: { id: req.body.id } });
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Categoria.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
                 message: 'Ocurrió un error'
@@ -75,11 +81,27 @@ module.exports = {
     deactivate: async(req, res, next) => {
         try {
             const reg = await models.Categoria.update({ estado: 0 }, { where: { id: req.body.id } });
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Categoria.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
                 message: 'Ocurrió un error'
             });
+            next(e);
+        }
+    },
+
+    remove: async (req, res, next) => {
+        try {
+            const reg = await models.Categoria.destroy({where:{id:req.body.id}});
+            if (!reg) {
+                return res.status(404).send("No se ha encontrado un elemento");
+            }
+            res.status(200).json(reg);
+        } catch (e) {
+            res.status(500).send("Error -> " + e);
             next(e);
         }
     }

@@ -45,6 +45,25 @@ module.exports = {
         }
     },
 
+    query: async (req, res, next) => {
+        try {
+            let category = await models.Usuario.findOne({
+                where: {
+                    id: req.params.id
+                }
+            });
+
+            if (!category) {
+                return res.status(404).send("La categoría no existe");
+            }
+
+            res.status(200).json(category)
+        } catch (e) {
+            res.status(500).send("Error -> " + e);
+            next(e);
+        }
+    },
+
     add: async(req, res, next) => {
         try {
             req.body.password = await bcrypt.hash(req.body.password, 10);
@@ -66,7 +85,10 @@ module.exports = {
                 req.body.password = await bcrypt.hash(req.body.password, 10);
             }
             const reg = await models.Usuario.update({ rol: req.body.rol, nombre: req.body.nombre, email: req.body.email, password: req.body.password }, { where: { id: req.body.id } });
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Usuario.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
                 message: 'Ocurrió un error'
@@ -78,7 +100,10 @@ module.exports = {
     activate: async(req, res, next) => {
         try {
             const reg = await models.Usuario.update({ estado: 1 }, { where: { id: req.body.id } });
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Usuario.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
                 message: 'Ocurrió un error'
@@ -90,11 +115,27 @@ module.exports = {
     deactivate: async(req, res, next) => {
         try {
             const reg = await models.Usuario.update({ estado: 0 }, { where: { id: req.body.id } });
-            res.status(200).json(reg);
+            if (reg) {
+                const reg = await models.Usuario.findOne({ where: { id: req.body.id } })
+                return res.status(200).json(reg);
+            }
         } catch (e) {
             res.status(500).send({
                 message: 'Ocurrió un error'
             });
+            next(e);
+        }
+    },
+
+    remove: async (req, res, next) => {
+        try {
+            const reg = await models.Usuario.destroy({where:{id:req.body.id}});
+            if (!reg) {
+                return res.status(404).send("No se ha encontrado un elemento");
+            }
+            res.status(200).json(reg);
+        } catch (e) {
+            res.status(500).send("Error -> " + e);
             next(e);
         }
     }

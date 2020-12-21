@@ -11,5 +11,6 @@ router.post('/add', categoriaController.add); //pagina.com/api/categoria/add
 router.put('/update', categoriaController.update); //pagina.com/api/categoria/update
 router.put('/activate', categoriaController.activate); //pagina.com/api/categoria/activate
 router.put('/deactivate', categoriaController.deactivate);  //pagina.com/api/categoria/deactivate
+router.delete('/remove', categoriaController.remove); // site.com/api/categoria/remove
 
 module.exports = router;
